@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sandip Verma - Contact</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    h1, h2, h3 {
+      margin: 0;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(-45deg, #1A73E8, #6A1B9A, #FF6D00, #FF4081);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    /* Contact Information Section */
+    .contact-info {
+      padding: 80px 0;
+      text-align: center;
+    }
+    .contact-info h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+    .contact-info p {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    /* Contact Form Section */
+    .contact-form {
+      padding: 80px 0;
+      background: #F5F5F5;
+    }
+    .contact-form h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .contact-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .contact-form textarea {
+      resize: vertical;
+      height: 150px;
+    }
+    .contact-form button {
+      background: #FF6D00;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .contact-form button:hover {
+      background: #E65C00;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div>
+      <h1>Get in Touch</h1>
+      <p>I'm here to help you with your projects. Feel free to reach out!</p>
+    </div>
+  </section>
+
+  <!-- Contact Information Section -->
+  <section class="contact-info">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <p>Mobile: 9831367071</p>
+      <p>Email: sandipverma700007@gmail.com</p>
+      <p>Profession: Web Developer | Photo Editor | Video Editor</p>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-form">
+    <div class="container">
+      <h2>Send Me a Message</h2>
+      <form action="whatsapp" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="text" name="subject" placeholder="Subject" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>© 2023 Sandip Verma. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
