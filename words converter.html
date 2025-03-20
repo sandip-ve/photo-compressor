@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert images to text easily with our free online Image to Words Converter Tool. Extract text and apply styles like bold, italic, and underline.">
+  <meta name="keywords" content="image to text, OCR, text extractor, image to words, free OCR tool">
+  <meta name="author" content="Your Name">
+  <title>Image to Words Converter - Extract Text from Images</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .converter-tool {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    input, select, button {
+      margin: 10px 0;
+      padding: 12px;
+      width: 100%;
+      max-width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff3b2f;
+    }
+
+    #wordStyles {
+      width: 80%;
+      margin: 10px 0;
+    }
+
+    #outputText {
+      width: 100%;
+      height: 150px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      background: #fff;
+      color: #333;
+    }
+
+    .ad-space {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-top: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Image to Words Converter</h1>
+    <p>Extract text from images and apply styles like bold, italic, and underline.</p>
+  </header>
+
+  <main>
+    <!-- Ad Space 1 -->
+    <div class="ad-space">
+      <!-- Insert Google AdSense code here -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="ca-app-pub-3103989708987581/4512840519" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+           data-ad-slot="AD_SLOT_ID_1"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- Image to Words Converter Tool -->
+    <div class="converter-tool">
+      <input type="file" id="imageInput" accept="image/*">
+      <select id="wordStyles">
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="italic">Italic</option>
+        <option value="underline">Underline</option>
+      </select>
+      <button id="convertBtn">Convert Image to Text</button>
+      <textarea id="outputText" placeholder="Extracted text will appear here..." readonly></textarea>
+      <button id="copyTextBtn">Copy Text</button>
+    </div>
+
+    <!-- Ad Space 2 -->
+    <div class="ad-space">
+      <!-- Insert Google AdSense code here -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="ca-app-pub-3103989708987581/4512840519" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+           data-ad-slot="AD_SLOT_ID_2"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Image to Words Converter. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js"></script>
+  <script>
+    document.getElementById('convertBtn').addEventListener('click', function () {
+      const fileInput = document.getElementById('imageInput');
+      const outputText = document.getElementById('outputText');
+      const wordStyles = document.getElementById('wordStyles').value;
+
+      if (fileInput.files.length === 0) {
+        alert('Please select an image file.');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        Tesseract.recognize(
+          e.target.result,
+          'eng',
+          {
+            logger: (info) => console.log(info), // Optional: Log progress
+          }
+        ).then(({ data: { text } }) => {
+          let formattedText = text;
+
+          // Apply selected word style
+          switch (wordStyles) {
+            case 'bold':
+              formattedText = `<strong>${text}</strong>`;
+              break;
+            case 'italic':
+              formattedText = `<em>${text}</em>`;
+              break;
+            case 'underline':
+              formattedText = `<u>${text}</u>`;
+              break;
+            default:
+              formattedText = text;
+          }
+
+          outputText.innerHTML = formattedText;
+        });
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('copyTextBtn').addEventListener('click', function () {
+      const outputText = document.getElementById('outputText');
+      outputText.select();
+      document.execCommand('copy');
+      alert('Text copied to clipboard!');
+    });
+  </script>
+</body>
+</html>
