@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Convert and optimize images to JPEG, JPG, ZIP, GIF, or PDF formats easily with our free online image converter tool.">
+  <meta name="keywords" content="image converter, JPEG, JPG, ZIP, GIF, PDF, optimize images, free image tool">
+  <meta name="author" content="Your Name">
+  <title>Image Converter Tool - Convert and Optimize Images</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #fff;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .converter-tool {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    input, select, button {
+      margin: 10px 0;
+      padding: 12px;
+      width: 100%;
+      max-width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: #fff;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff3b2f;
+    }
+
+    #pdfSizeContainer {
+      margin: 15px 0;
+    }
+
+    #pdfSize {
+      width: 80%;
+      margin: 10px 0;
+    }
+
+    .ad-space {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      border-top: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Image Converter Tool</h1>
+    <p>Convert and optimize images to JPEG, JPG, ZIP, GIF, or PDF formats easily.</p>
+  </header>
+
+  <main>
+    <!-- Ad Space 1 -->
+    <div class="ad-space">
+      <!-- Insert Google AdSense code here -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_CLIENT_ID" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+           data-ad-slot="AD_SLOT_ID_1"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+
+    <!-- Image Converter Tool -->
+    <div class="converter-tool">
+      <input type="file" id="imageInput" accept="image/*">
+      <select id="formatSelect">
+        <option value="jpeg">JPEG</option>
+        <option value="jpg">JPG</option>
+        <option value="zip">ZIP</option>
+        <option value="gif">GIF</option>
+        <option value="pdf">PDF</option>
+      </select>
+      <div id="pdfSizeContainer" style="display: none;">
+        <label for="pdfSize">Select PDF Size (KB):</label>
+        <input type="range" id="pdfSize" min="50" max="300" value="150">
+        <span id="pdfSizeValue">150 KB</span>
+      </div>
+      <button id="convertBtn">Convert Image</button>
+      <a id="downloadLink" style="display:none;">Download Converted File</a>
+    </div>
+
+    <!-- Ad Space 2 -->
+    <div class="ad-space">
+      <!-- Insert Google AdSense code here -->
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_AD_CLIENT_ID" crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-YOUR_AD_CLIENT_ID"
+           data-ad-slot="AD_SLOT_ID_2"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Image Converter Tool. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    document.getElementById('formatSelect').addEventListener('change', function () {
+      const pdfSizeContainer = document.getElementById('pdfSizeContainer');
+      if (this.value === 'pdf') {
+        pdfSizeContainer.style.display = 'block';
+      } else {
+        pdfSizeContainer.style.display = 'none';
+      }
+    });
+
+    document.getElementById('pdfSize').addEventListener('input', function () {
+      document.getElementById('pdfSizeValue').textContent = `${this.value} KB`;
+    });
+
+    document.getElementById('convertBtn').addEventListener('click', function () {
+      const fileInput = document.getElementById('imageInput');
+      const formatSelect = document.getElementById('formatSelect');
+      const downloadLink = document.getElementById('downloadLink');
+
+      if (fileInput.files.length === 0) {
+        alert('Please select an image file.');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const img = new Image();
+        img.src = e.target.result;
+
+        img.onload = function () {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          const format = formatSelect.value;
+
+          if (format === 'pdf') {
+            const pdfSize = parseInt(document.getElementById('pdfSize').value, 10);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const imgData = canvas.toDataURL('image/jpeg', 0.9);
+
+            pdf.addImage(imgData, 'JPEG', 10, 10, 190, 0);
+            const pdfBlob = pdf.output('blob');
+
+            // Compress PDF to desired size
+            const reader = new FileReader();
+            reader.readAsDataURL(pdfBlob);
+            reader.onload = function () {
+              const base64data = reader.result;
+              const compressedPdf = compressPDF(base64data, pdfSize);
+              const url = URL.createObjectURL(compressedPdf);
+              downloadLink.href = url;
+              downloadLink.download = `converted_image.pdf`;
+              downloadLink.style.display = 'block';
+              downloadLink.textContent = `Download PDF`;
+            };
+          } else {
+            let mimeType = 'image/jpeg';
+            if (format === 'gif') mimeType = 'image/gif';
+            else if (format === 'png') mimeType = 'image/png';
+
+            canvas.toBlob(function (blob) {
+              const url = URL.createObjectURL(blob);
+              downloadLink.href = url;
+              downloadLink.download = `converted_image.${format}`;
+              downloadLink.style.display = 'block';
+              downloadLink.textContent = `Download ${format.toUpperCase()}`;
+            }, mimeType);
+          }
+        };
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    function compressPDF(base64data, targetSizeKB) {
+      // Implement PDF compression logic here (e.g., using a library like PDF-LIB)
+      // For simplicity, this example does not include actual compression logic.
+      return new Blob([base64data], { type: 'application/pdf' });
+    }
+  </script>
+</body>
+</html>
